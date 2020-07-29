@@ -1,70 +1,58 @@
 package utils;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+
 
 public class TestNGListener implements ITestListener {
 
-  @Override
-  public void onTestStart(ITestResult result) {
-
-  }
-
-  @Override
-  public void onTestSuccess(ITestResult result) {
-
-  }
-
-  @Override
-  public void onTestFailure(ITestResult result) {
-    File screenshotsFolder = new File(System.getProperty("user.dir") + "/screenshots");
-
-    if (!screenshotsFolder.exists()) {
-      screenshotsFolder.mkdir();
+    public void onTestStart(ITestResult iTestResult) {
+        System.out.println("On Test Start");
     }
 
-    File screenshot = captureScreenshot();
-    Path pathToScreenShot = Paths.get(screenshot.getPath());
-    try {
-      String screenshotName = screenshotsFolder + "/" + "Screenshot_" + java.time.LocalTime.now() + ".png";
-      Files.copy(pathToScreenShot, Paths.get(screenshotName), StandardCopyOption.COPY_ATTRIBUTES);
-    } catch (IOException e) {
-      e.printStackTrace();
+    public void onTestSuccess(ITestResult iTestResult) {
+        System.out.println("On Test Success");
     }
-    WebDriverFactory.getDriver().quit();
-  }
 
-  @Override
-  public void onTestSkipped(ITestResult result) {
+    public void onTestFailure(ITestResult iTestResult) {
+        File screenshotFolder = new File(System.getProperty("user.dir") + "/screenshots");
 
-  }
+        if (!screenshotFolder.exists()) {
+            screenshotFolder.mkdir();
+        }
 
-  @Override
-  public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+        File screenshot = ((TakesScreenshot) WebDriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
 
-  }
+        try {
+            String screenshotName = screenshotFolder + "/screenshot" + java.time.LocalTime.now().toString().replace(":", ".") + ".jpg";
+            FileUtils.copyFile(screenshot, new File(screenshotName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-  @Override
-  public void onStart(ITestContext context) {
+    }
 
-  }
+    public void onTestSkipped(ITestResult iTestResult) {
 
-  @Override
-  public void onFinish(ITestContext context) {
-     WebDriverFactory.getDriver().quit();
-  }
+    }
 
-  private File captureScreenshot() {
-    return ((TakesScreenshot) WebDriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
-  }
+    public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
+
+    }
+
+    public void onStart(ITestContext iTestContext) {
+        System.out.println("On Start");
+    }
+
+    public void onFinish(ITestContext iTestContext) {
+        System.out.println("On Finish");
+    }
 }
