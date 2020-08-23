@@ -9,13 +9,11 @@
     
     <test name="Sample Test">
         <classes>
-            <class name="EmptyTestClass1"/>
-            <class name="EmptyTestClass2"/>
-<!--                <methods>-->
-<!--                    <include name="successfulLoginTest"/>-->
-<!--                    <include name="unsuccessfulLoginTest"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="TestClass">
+                <methods>
+                    <include name="successfulLoginTest"/>
+                </methods>
+            </class>
         </classes>
     </test>
 
