@@ -12,7 +12,7 @@ public class HomePage {
 
     private By createIssueButton = By.id("create_link");
     private By tempWindowIssueCreated = By.xpath("//*[contains(@class,'aui-will-close')]");
-    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']"); // locator from another page, breaks logic
+    private By createIssueTitle = By.xpath("//input[@id = 'create-issue-submit']"); // locator from another page, breaks logic
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -27,7 +27,11 @@ public class HomePage {
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.id("header-details-user-fullname"))).isDisplayed();
     }
 
-    public void clickCreateIssue() {
+    private void clickCreateIssue(){
+        driver.findElement(createIssueButton).click();
+    }
+
+    public void clickCreateIssueWithRetry() {
         clickOnElementWithRetry(createIssueButton, createIssueTitle, 3, 3);
     }
 
@@ -35,11 +39,11 @@ public class HomePage {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         for (int i = 0; i < attempts; i++) {
             try{
-                wait.until(ExpectedConditions.visibilityOfElementLocated(successCriteriaElement)).isDisplayed();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(successCriteriaElement));
                 break;
             }   catch (TimeoutException e){
                 wait.until(ExpectedConditions.elementToBeClickable(elementToBeClicked));
-                driver.findElement(elementToBeClicked).click();
+                clickCreateIssue();
             }
         }
     }
