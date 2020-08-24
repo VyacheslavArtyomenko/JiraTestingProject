@@ -14,18 +14,20 @@ public class CreateIssueWindow {
     private By summaryField = By.id("summary");
     private By reporterField = By.id("reporter-field");
     private By createIssueButton = By.id("create-issue-submit");
-    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']");
+    private By createIssueTitle = By.xpath("//input[@id = 'create-issue-submit']");
+    private By cancelButton = By.xpath("//a[@class = 'cancel']");
 
     public CreateIssueWindow(WebDriver driver) {
         this.driver = driver;
     }
 
-    public boolean isProjectFieldDisplayed(){
+    private boolean isProjectFieldDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         return wait.until(ExpectedConditions.elementToBeClickable(By.id("project-field"))).isDisplayed();
     }
 
     public void clearProjectField() {
+        isProjectFieldDisplayed();
         driver.findElement(projectField).clear();
     }
 
@@ -37,12 +39,13 @@ public class CreateIssueWindow {
         driver.findElement(projectField).sendKeys(Keys.TAB);
     }
 
-    public boolean isIssueTypeFieldDisplayed(){
+    private boolean isIssueTypeFieldDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        return wait.until(ExpectedConditions.elementToBeClickable(By.id( "issuetype-field"))).isDisplayed();
+        return wait.until(ExpectedConditions.elementToBeClickable(By.id("issuetype-field"))).isDisplayed();
     }
 
     public void clearIssueTypeField() {
+        isIssueTypeFieldDisplayed();
         driver.findElement(issueTypeField).clear();
     }
 
@@ -54,12 +57,13 @@ public class CreateIssueWindow {
         driver.findElement(issueTypeField).sendKeys(Keys.TAB);
     }
 
-    public boolean isSummaryFieldDisplayed(){
+    private boolean isSummaryFieldDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         return wait.until(ExpectedConditions.elementToBeClickable(By.id("summary"))).isDisplayed();
     }
 
     public void enterSummary(String text) {
+        isSummaryFieldDisplayed();
         driver.findElement(summaryField).sendKeys(text);
     }
 
@@ -67,12 +71,20 @@ public class CreateIssueWindow {
         driver.findElement(reporterField).clear();
     }
 
-    public void enterReporterField(String text){
+    public void enterReporterField(String text) {
         driver.findElement(reporterField).sendKeys(text);
     }
 
-    public void pressCreateIssueButton(){
+    public void pressCreateIssueButton() {
         driver.findElement(createIssueButton).click();
+    }
+
+    public void clickCancelButton() {
+        driver.findElement(cancelButton).click();
+    }
+
+    public void acceptAlert() {
+        driver.switchTo().alert().accept();
     }
 
 }
