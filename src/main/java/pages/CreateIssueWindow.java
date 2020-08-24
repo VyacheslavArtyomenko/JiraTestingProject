@@ -14,7 +14,7 @@ public class CreateIssueWindow {
     private By summaryField = By.id("summary");
     private By reporterField = By.id("reporter-field");
     private By createIssueButton = By.id("create-issue-submit");
-    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']");
+    private By createIssueTitle = By.xpath("//input[@id = 'create-issue-submit']");
     private By cancelButton = By.xpath("//a[@class = 'cancel']");
 
     public CreateIssueWindow(WebDriver driver) {

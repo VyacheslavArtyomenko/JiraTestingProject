@@ -28,7 +28,6 @@ public class TestClass {
         homePage = new HomePage(driver);
         jiraTicketPage = new JiraTicketPage(driver);
         createIssueWindow = new CreateIssueWindow(driver);
-  //      driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     @Test
