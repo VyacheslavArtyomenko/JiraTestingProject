@@ -12,7 +12,7 @@ public class HomePage {
 
     private By createIssueButton = By.id("create_link");
     private By tempWindowIssueCreated = By.xpath("//*[contains(@class,'aui-will-close')]");
-    private By createIssueTitle = By.xpath("//input[@id = 'create-issue-submit']"); // locator from another page, breaks logic
+    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']"); // locator from another page, breaks logic
 
     public HomePage(WebDriver driver) {
         this.driver = driver;

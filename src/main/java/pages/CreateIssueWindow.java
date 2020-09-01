@@ -14,8 +14,7 @@ public class CreateIssueWindow {
     private By summaryField = By.id("summary");
     private By reporterField = By.id("reporter-field");
     private By createIssueButton = By.id("create-issue-submit");
-    private By createIssueTitle = By.xpath("//input[@id = 'create-issue-submit']");
-    private By cancelButton = By.xpath("//a[@class = 'cancel']");
+    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']");
 
     public CreateIssueWindow(WebDriver driver) {
         this.driver = driver;
@@ -41,7 +40,7 @@ public class CreateIssueWindow {
 
     private boolean isIssueTypeFieldDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        return wait.until(ExpectedConditions.elementToBeClickable(By.id("issuetype-field"))).isDisplayed();
+        return wait.until(ExpectedConditions.elementToBeClickable(By.id( "issuetype-field"))).isDisplayed();
     }
 
     public void clearIssueTypeField() {

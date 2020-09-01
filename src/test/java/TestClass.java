@@ -1,13 +1,15 @@
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 import pages.CreateIssueWindow;
 import pages.HomePage;
 import pages.JiraTicketPage;
 import pages.LoginPage;
 import utils.WebDriverFactory;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertTrue;
 
@@ -21,7 +23,7 @@ public class TestClass {
 
     @Parameters({"browserName"})
     @BeforeMethod()
-    public void setUp(@Optional("chrome)") String browserName) {
+    public void setUp(String browserName) {
         WebDriverFactory.createInstance(browserName);
         driver = WebDriverFactory.getDriver();
         loginPage = new LoginPage(driver);
@@ -76,38 +78,25 @@ public class TestClass {
         loginPage.enterPassword("VyacheslavArtyomenko");
         loginPage.clickLoginButton();
 
-        homePage.clickCreateIssueWithRetry();
+        homePage.clickCreateIssue();
 
+        createIssueWindow.isProjectFieldDisplayed();
         createIssueWindow.clearProjectField();
         createIssueWindow.enterProjectField("Webinar");
         createIssueWindow.pressTabAfterProjectField();
 
+        createIssueWindow.isIssueTypeFieldDisplayed();
         createIssueWindow.clearIssueTypeField();
         createIssueWindow.enterIssueTypeField("Task");
         createIssueWindow.pressTabAfterIssueTypeField();
 
+        createIssueWindow.isSummaryFieldDisplayed();
         createIssueWindow.enterSummary("One more test summary");
         createIssueWindow.clearReporterField();
         createIssueWindow.enterReporterField("VyacheslavArtyomenko");
 
         createIssueWindow.pressCreateIssueButton();
         Assert.assertTrue(homePage.isIssueCreated());
-    }
-
-    @Test
-    public void cancelCreateIssue(){
-        homePage.navigateToHomePage();
-        loginPage.enterUserName("VyacheslavArtyomenko");
-        loginPage.enterPassword("VyacheslavArtyomenko");
-        loginPage.clickLoginButton();
-
-        homePage.clickCreateIssueWithRetry();
-
-        createIssueWindow.enterSummary("One more test summary");
-        createIssueWindow.clickCancelButton();
-        createIssueWindow.acceptAlert();
-
-        Assert.assertTrue(homePage.isUserIconDisplayed());
     }
 
     @Test
