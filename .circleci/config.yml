@@ -10,7 +10,3 @@ jobs:
           name: run tests
           command: |
             mvn clean test
-  - store_artifacts:
-      path: test-reports
-      destination: test-reports
-      when: always
