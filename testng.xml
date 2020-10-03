@@ -12,6 +12,10 @@
             <class name="TestClass">
                 <methods>
                     <include name="successfulLoginTest"/>
+                    <include name="viewJiraTicket"/>
+                    <include name="createIssue"/>
+                    <include name="cancelCreateIssue"/>
+                    <include name="addComment"/>
                 </methods>
             </class>
         </classes>

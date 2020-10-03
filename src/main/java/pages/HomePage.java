@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -18,19 +19,23 @@ public class HomePage {
         this.driver = driver;
     }
 
+    @Step("Navigate to Home page")
     public void navigateToHomePage() {
             driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
     }
 
+    @Step("Check if user icon is Displayed")
     public boolean isUserIconDisplayed() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.id("header-details-user-fullname"))).isDisplayed();
     }
 
+    @Step("Click create issue")
     private void clickCreateIssue(){
         driver.findElement(createIssueButton).click();
     }
 
+    @Step("Click create issue")
     public void clickCreateIssueWithRetry() {
         clickOnElementWithRetry(createIssueButton, createIssueTitle, 3, 3);
     }
@@ -48,6 +53,7 @@ public class HomePage {
         }
     }
 
+    @Step("Check if issue is created")
     public boolean isIssueCreated() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         return wait.until(ExpectedConditions.visibilityOfElementLocated(tempWindowIssueCreated)).isDisplayed()

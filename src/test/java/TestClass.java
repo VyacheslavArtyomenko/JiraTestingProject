@@ -1,3 +1,5 @@
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -30,6 +32,8 @@ public class TestClass {
         createIssueWindow = new CreateIssueWindow(driver);
     }
 
+    @Story("Login")
+    @Feature("Successful login test")
     @Test
     public void successfulLoginTest() {
         homePage.navigateToHomePage();
@@ -58,6 +62,7 @@ public class TestClass {
         };
     }
 
+    @Story("Tickets")
     @Test
     public void viewJiraTicket() {
         jiraTicketPage.navigateToJiraTicketPage();
@@ -69,6 +74,8 @@ public class TestClass {
         Assert.assertTrue(jiraTicketPage.isTitleContains("WEBINAR-9060"));
     }
 
+    @Story("Issues")
+    @Feature("Create new issue")
     @Test
     public void createIssue() {
         homePage.navigateToHomePage();
@@ -94,6 +101,7 @@ public class TestClass {
         Assert.assertTrue(homePage.isIssueCreated());
     }
 
+    @Feature("Canceling create issue")
     @Test
     public void cancelCreateIssue(){
         homePage.navigateToHomePage();
@@ -110,6 +118,8 @@ public class TestClass {
         Assert.assertTrue(homePage.isUserIconDisplayed());
     }
 
+    @Story("Comments")
+    @Feature("Add comment")
     @Test
     public void addComment() {
         jiraTicketPage.navigateToJiraTicketPage();
@@ -129,8 +139,6 @@ public class TestClass {
         jiraTicketPage.clickDeleteDialogButton();
 
         Assert.assertTrue(jiraTicketPage.isLastCommentDeleted());
-
-        System.out.println("Done");
     }
 
     @Test
